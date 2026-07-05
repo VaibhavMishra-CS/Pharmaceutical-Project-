@@ -10,7 +10,8 @@ if 'medications' not in st.session_state:
 # Input section
 with st.form("patient_form"):
     patient_name = st.text_input("Enter Patient Name")
-    dosage = st.text_input("Enter Dosage (mg/ml), times per day=1")
+    dosage = st.text_input("Enter Dosage (mg/ml)") 
+    times_per_day = st.number_input("Enter Number of Times per Day", min_value=1, max_value=10, step=1)
     medicine = st.text_input("Enter Medicine Name")
     scheduled_time = st.time_input("Enter Scheduled Time")
     phone_number = st.text_input("Enter Patient Phone Number")
@@ -20,6 +21,7 @@ with st.form("patient_form"):
         st.session_state.medications.append({
             "patient_name": patient_name,
             "dosage": dosage,
+            "times_per_day": times_per_day,
             "medicine": medicine,
             "scheduled_time": scheduled_time,
             "phone_number": phone_number
@@ -31,7 +33,7 @@ for i, medicine in enumerate(st.session_state.medications):
     st.write(f"{i+1}. {medicine['medicine']} ({medicine['dosage']}mg/ml) at {medicine['scheduled_time']}")
 
 #final submit
-    if submit_button("Save Full Schedule"):
+    if st.button("Save Full Schedule"):
         # Save the data to a CSV file
         with open("patient_data.csv", mode="a", newline="") as file:
             writer = csv.writer(file)
