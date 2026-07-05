@@ -42,6 +42,12 @@ for i, medicine in enumerate(st.session_state.medications):
                 medicine = med['medicine']
                 scheduled_time = med['scheduled_time']
                 phone_number = med['phone_number']
-            writer.writerow([patient_name, medicine, scheduled_time, phone_number])
+                times_per_day = med['times_per_day']
+            writer.writerow([patient_name, medicine, scheduled_time, phone_number, times_per_day])
+
+            #Assuming "patient name & contact" is constant for this session 
+            writer.writerow(["Patient Name', medicine[name], scheduled_time[time], dosage[Dosage(mg/ml)], times_per_day[Times per day}]"])
         st.success("Patient Enrolled successfully!")
         st.session_state.medications = [] #clear list
+    else:
+        st.warning("Your list is Empty!")
