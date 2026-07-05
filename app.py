@@ -3,6 +3,11 @@ import csv
 import os 
 
 st.title("Pharmacy Medication Reminder System")
+
+#intial session state to keep track of added medications 
+if 'medications' not in st.session_state:
+    st.session_state.medications = []
+
 with st.form("patient_form"):
     patient_name = st.text_input("Enter Patient Name")
     medicine = st.text_input("Enter Medicine Name")
