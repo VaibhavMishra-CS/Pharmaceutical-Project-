@@ -29,3 +29,7 @@ try:
     #ERRORS
 except TwilioRestException as e:
     print(f"An error occurred: {e}")
+
+# scheduling the task
+schedule.every().day.at("scheduled_time").do(send_reminder, patient_name, medicine)
+
