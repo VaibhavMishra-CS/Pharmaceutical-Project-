@@ -33,3 +33,8 @@ except TwilioRestException as e:
 # scheduling the task
 schedule.every().day.at("scheduled_time").do(send_reminder, patient_name, medicine)
 
+#loop
+print("system is running and waiting for schedule...")
+while True:
+    schedule.run_pending()
+    time.sleep(1)
