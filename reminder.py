@@ -4,3 +4,4 @@ from twilio.rest import Client
 import schedule 
 import time 
 
+load_dotenv()
