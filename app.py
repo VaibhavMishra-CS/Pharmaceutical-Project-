@@ -38,15 +38,24 @@ with col1:
                  "times_per_day": times_per_day,
                  "medicine": medicine,
                  "scheduled_time": scheduled_time,
-                "phone_number": phone_number
-          })
+                 "phone_number": phone_number,
+                 "interval": interval_hours
+             })
 
 # Display the list of added medications
 with col2:
     st.subheader("Your Daily Schedule")
     for i, medicine in enumerate(st.session_state.medications):
         st.write(f"{i+1}. {medicine['medicine']} ({medicine['dosage']}mg/ml) at {medicine['scheduled_time']}")
+        #display extra information
+        st.caption(f"times per day: {medicine['times_per_day']} | Interval: {medicine.get('interval', 'N/A')} hours")
 
+#remove button 
+        if st.button(f"Remove {medicine['medicine']}", key=f"remove_{i}"):
+            st.session_state.medications.pop(i) #removes the item at index i
+            st.experimental_rerun()  # Refresh the page to update the list
+
+        st.divider()  # Add a divider between each medication entry
 #final submit
     if st.button("Save Full Schedule", key='save_button'):
         if st.session_state.medications:
@@ -59,10 +68,12 @@ with col2:
                     scheduled_time = med['scheduled_time']
                     phone_number = med['phone_number']
                     times_per_day = med['times_per_day']
-                    writer.writerow([patient_name, medicine, scheduled_time, phone_number, times_per_day])
+                    interval = med['interval']
+                    writer.writerow([patient_name, medicine, scheduled_time, phone_number, times_per_day, interval])
 
             #Assuming "patient name & contact" is constant for this session 
         st.success("Patient Enrolled successfully!")
         st.session_state.medications = [] #clear list
+        st.rerun() # Refresh the page to update the list
     else:
         st.warning("Your list is Empty!")
