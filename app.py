@@ -33,7 +33,7 @@ for i, medicine in enumerate(st.session_state.medications):
     st.write(f"{i+1}. {medicine['medicine']} ({medicine['dosage']}mg/ml) at {medicine['scheduled_time']}")
 
 #final submit
-    if st.button("Save Full Schedule"):
+    if st.button("Save Full Schedule", key='save_button'):
         # Save the data to a CSV file
         with open("patient_data.csv", mode="a", newline="") as file:
             writer = csv.writer(file)
@@ -46,7 +46,7 @@ for i, medicine in enumerate(st.session_state.medications):
             writer.writerow([patient_name, medicine, scheduled_time, phone_number, times_per_day])
 
             #Assuming "patient name & contact" is constant for this session 
-            writer.writerow(["Patient Name', medicine[name], scheduled_time[time], dosage[Dosage(mg/ml)], times_per_day[Times per day}]"])
+            writer.writerow(["Patient Name", "Medicine", "Scheduled Time", "Phone Number", "Times per Day"])
         st.success("Patient Enrolled successfully!")
         st.session_state.medications = [] #clear list
     else:
